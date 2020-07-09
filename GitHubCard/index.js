@@ -26,23 +26,26 @@ function ghCardMaker(ghDataObj){
   cardInfo.appendChild(userName)
   cardInfo.appendChild(location)
   cardInfo.appendChild(profile)
+  // cardInfo.appendChild(profileLink)
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
+  
   
 
   card.classList.add('card')
   cardInfo.classList.add('card-info')
   name.classList.add('name')
   userName.classList.add('username')
-  profileLink.href = ghDataObj.data.html_url
+  profileLink.setAttribute("href", "ghDataObj.data.html_url") 
+
 
 
   name.textContent = ghDataObj.data.name
   userName.textContent = ghDataObj.data.login
   location.textContent = `Location: ${ghDataObj.data.location}`
-  // profileLink.textContent = ghDataObj.data.html_url
-  profile.textContent = `Profile: ${profileLink}`
+  profile.textContent = `Profile: ${ghDataObj.data.html_url}`
+  profileLink.textContent = `${ghDataObj.data.html_url}`
   bio.textContent = `Bio: ${ghDataObj.data.bio}`
   followers.textContent = `Followers: ${ghDataObj.data.followers}`
   following.textContent = `Following: ${ghDataObj.data.following}`
@@ -54,16 +57,16 @@ function ghCardMaker(ghDataObj){
 
 
 
-// const profileURL = 'https://api.github.com/users/Joe-Bay'
+const profileURL = 'https://api.github.com/users/Joe-Bay'
 
-// axios.get(profileURL).then(function(value){
-//   console.log('it succeeded to get the data')
-//   entryCard.appendChild(ghCardMaker(value))
-//   // console.log(value)
-// }).catch(function(error){
-//   debugger
-//   console.log('it failed to get the data')
-// })
+axios.get(profileURL).then(function(value){
+  console.log('it succeeded to get the data')
+  entryCard.appendChild(ghCardMaker(value))
+  // console.log(value)
+}).catch(function(error){
+  debugger
+  console.log('it failed to get the data')
+})
 
 /*
 {
@@ -131,16 +134,15 @@ const followersArray = [
   "dustinmyers",
   "justsml",
   "luishrd",
-  "bigknell"
+  "bigknell",
+  "Miahbandicoot"
 ];
 
 function getFriendsInfo(arr){
   arr.forEach(person => {
     const personURL = `https://api.github.com/users/${person}`
     axios.get(personURL).then(function(value){
-      console.log(value)
       entryCard.appendChild(ghCardMaker(value))
-      console.log(value)
     }).catch(function(error){
       debugger
       console.log('it failed to get the data')
