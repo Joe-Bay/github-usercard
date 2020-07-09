@@ -15,6 +15,7 @@ function ghCardMaker(ghDataObj){
   const userName = document.createElement('p')
   const location = document.createElement('p')
   const profile = document.createElement('p')
+  const profileLink = document.createElement('a')
   const bio = document.createElement('p')
   const followers = document.createElement('p')
   const following = document.createElement('p')
@@ -28,17 +29,20 @@ function ghCardMaker(ghDataObj){
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
+  
 
   card.classList.add('card')
   cardInfo.classList.add('card-info')
   name.classList.add('name')
   userName.classList.add('username')
+  profileLink.href = ghDataObj.data.html_url
 
 
   name.textContent = ghDataObj.data.name
   userName.textContent = ghDataObj.data.login
   location.textContent = `Location: ${ghDataObj.data.location}`
-  profile.textContent = `Profile: ${ghDataObj.data.html_url}`
+  // profileLink.textContent = ghDataObj.data.html_url
+  profile.textContent = `Profile: ${profileLink}`
   bio.textContent = `Bio: ${ghDataObj.data.bio}`
   followers.textContent = `Followers: ${ghDataObj.data.followers}`
   following.textContent = `Following: ${ghDataObj.data.following}`
@@ -50,16 +54,16 @@ function ghCardMaker(ghDataObj){
 
 
 
-const profileURL = 'https://api.github.com/users/Joe-Bay'
+// const profileURL = 'https://api.github.com/users/Joe-Bay'
 
-axios.get(profileURL).then(function(value){
-  console.log('it succeeded to get the data')
-  entryCard.appendChild(ghCardMaker(value))
-  // console.log(value)
-}).catch(function(error){
-  debugger
-  console.log('it failed to get the data')
-})
+// axios.get(profileURL).then(function(value){
+//   console.log('it succeeded to get the data')
+//   entryCard.appendChild(ghCardMaker(value))
+//   // console.log(value)
+// }).catch(function(error){
+//   debugger
+//   console.log('it failed to get the data')
+// })
 
 /*
 {
@@ -122,7 +126,30 @@ axios.get(profileURL).then(function(value){
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+function getFriendsInfo(arr){
+  arr.forEach(person => {
+    const personURL = `https://api.github.com/users/${person}`
+    axios.get(personURL).then(function(value){
+      console.log(value)
+      entryCard.appendChild(ghCardMaker(value))
+      console.log(value)
+    }).catch(function(error){
+      debugger
+      console.log('it failed to get the data')
+    })
+  })
+
+
+}
+getFriendsInfo(followersArray);
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
