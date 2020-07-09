@@ -26,7 +26,6 @@ function ghCardMaker(ghDataObj){
   cardInfo.appendChild(userName)
   cardInfo.appendChild(location)
   cardInfo.appendChild(profile)
-  // cardInfo.appendChild(profileLink)
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
@@ -44,13 +43,13 @@ function ghCardMaker(ghDataObj){
   name.textContent = ghDataObj.data.name
   userName.textContent = ghDataObj.data.login
   location.textContent = `Location: ${ghDataObj.data.location}`
-  profile.textContent = `Profile: ${ghDataObj.data.html_url}`
+  profile.textContent = `Profile: `
   profileLink.textContent = `${ghDataObj.data.html_url}`
   bio.textContent = `Bio: ${ghDataObj.data.bio}`
   followers.textContent = `Followers: ${ghDataObj.data.followers}`
   following.textContent = `Following: ${ghDataObj.data.following}`
   image.src = ghDataObj.data.avatar_url
-
+  profile.appendChild(profileLink)
   return card
 }
 
